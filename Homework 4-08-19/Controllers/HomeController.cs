@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Homework_4_08_19.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,20 +12,33 @@ namespace Homework_4_08_19.Controllers
         public ActionResult Index()
         {
             return View();
+        }  
+
+        [HttpPost]
+        public void AddPerson(Person p)
+        {
+            PersonManager pm = new PersonManager(Properties.Settings.Default.Const);
+            pm.AddPerson(p); 
+        }
+        
+        public ActionResult GetPeople()
+        {
+            PersonManager pm = new PersonManager(Properties.Settings.Default.Const);
+            IEnumerable<Person> ppl = pm.GetPeople();
+            return Json(ppl, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public void Edit(Person p)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            PersonManager pm = new PersonManager(Properties.Settings.Default.Const);
+            pm.Edit(p);    
         }
 
-        public ActionResult Contact()
+        public void Delete(int id)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            PersonManager pm = new PersonManager(Properties.Settings.Default.Const);
+            pm.Delete(id);
         }
     }
 }
