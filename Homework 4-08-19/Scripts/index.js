@@ -59,7 +59,7 @@
         const id = button.data("id");
         console.log(id);
         $.post("/home/delete", { id }, function (ppl) {
-            $.get("/home/getpeople", function (ppl) {
+            $.get("/home/getpeople", function (ppl) {   
                 clearTable(ppl);
                 ppl.forEach(person => AddPersonToTable(person));
             });
